@@ -53,7 +53,7 @@ app.get("/api/history", (req, res) => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-let currentPrice = 1000.0; // 初始价格
+let currentPrice = 96.0; // 初始价格
 const PRICE_CHANGE_INTERVAL = 500; // 每 500ms 推送一次
 
 wss.on("connection", (ws) => {
