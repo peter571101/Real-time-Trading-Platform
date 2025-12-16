@@ -3,12 +3,14 @@ import {BrowserRouter, Routes,Route,Navigate} from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { useAuthStore } from './store/useAuthStore';
+import { useWebSocket } from './hooks/useWebSocket';
 const PrivateRoute = ({children}:{children: JSX.Element}) => {
   const token = useAuthStore((state) => state.token);
   return token?children : <Navigate to="/login" />;
 };
 
 function App() {
+  useWebSocket();
   return (
    <BrowserRouter>
     <Routes>
