@@ -1,10 +1,10 @@
 /**
  * 模拟生成 K 线历史数据 (OHLC + Volume)
  * @param {number} count 生成的数量
- * @param {number} interval 间隔时间（毫秒），例如 5分钟线是 5 * 60 * 1000
+ * @param {number} interval 间隔时间
  * @returns {Array<Array<number>>} 格式化的 K 线数据数组
  */
-const generateHistoryData = (count = 100, interval = 5 * 60 * 1000) => {
+const generateHistoryData = (count = 100, interval = 60 * 1000) => {
     const data = [];
     let baseTime = Date.now() - count * interval;
     let basePrice = 100.0;
@@ -27,7 +27,7 @@ const generateHistoryData = (count = 100, interval = 5 * 60 * 1000) => {
             volume
         ]);
 
-        basePrice = close + (Math.random() - 0.5) * 0.5;
+        basePrice = close + (Math.random() - 0.5) * 2;
     }
     return data;
 }

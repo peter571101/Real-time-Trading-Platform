@@ -1,0 +1,4 @@
+查看被系统预留端口的命令行指令
+netsh interface ipv4 show excludedportrange protocol=tcp
+预留原因:
+这是因为 Windows 的 Hyper-V 组件（常用于 WSL2 或 Docker）为了网络转换，会随机锁定大段端口作为“系统预留区”，而你的 3002 端口恰好落在了这个禁区内，导致 Node.js 作为一个普通应用无法获得监听权限，即使该端口表面上看起来并没被任何程序占用。

@@ -54,27 +54,29 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 let currentPrice = 96.0; // 初始价格
-const PRICE_CHANGE_INTERVAL = 500; // 每 500ms 推送一次
+const PRICE_CHANGE_INTERVAL = 1000; // 每 1000ms 推送一次
 
-wss.on("connection", (ws) => {
+//WebSocket建立连接
+wss.on("connection", (socket) => {
   console.log("WebSocket 客户端已连接");
 
-  ws.on("close", () => {
+  socket.on("close", () => {
     console.log("WebSocket 客户端已断开连接");
   });
 
-  ws.on("error", (error) => {
+  socket.on("error", (error) => {
     console.error("WebSocket 错误:", error.message);
   });
 });
 
 // 模拟实时价格变动并广播
 setInterval(() => {
-  // 模拟价格随机变动 (+/- 0.05到 +/- 0.5)
+  // 模拟价格随机变动 (+/- 0.5)
   const change = (Math.random() - 0.5) * 1.0;
   currentPrice += change;
   currentPrice = parseFloat(currentPrice.toFixed(2)); // 保留两位小数
 
+  // 定义发送数据格式
   const tick = {
     type: "tick",
     data: {
@@ -84,6 +86,7 @@ setInterval(() => {
     },
   };
 
+  //将数据包装成json格式
   const message = JSON.stringify(tick);
 
   // 广播给所有已连接的客户端
@@ -96,8 +99,8 @@ setInterval(() => {
 
 // --- 4. 端口监听逻辑 (确保端口可用) ---
 
-const PORT = process.env.PORT || 3001;
-const MAX_PORT = 3010;
+const PORT = 5005;
+const MAX_PORT = 5010;
 
 function startListening(port) {
   server

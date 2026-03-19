@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'http://localhost:5005/api';
 
 interface LoginResponse {
     token: string;
     username: string;
 }
 
-export async function login(username, password): Promise<LoginResponse> {
+export async function login(username: string, password: string): Promise<LoginResponse> {
     const response  = await axios.post(`${API_BASE_URL}/login`,{
         username,
         password

@@ -1,11 +1,9 @@
 // frontend/src/hooks/useWebSocket.ts
 
 import { useEffect, useRef } from 'react';
-import { useMarketStore } from '../store/useMarketStore'; // 假设路径正确
+import { useMarketStore } from '../store/useMarketStore'; 
 
-const WS_URL = process.env.NODE_ENV === 'production' 
-    ? 'wss://your-prod-domain.com/ws' 
-    : 'ws://localhost:3001'; // 确保端口与 server.js 一致
+const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:5005'; 
 
 export const useWebSocket = () => {
     const wsRef = useRef<WebSocket | null>(null);

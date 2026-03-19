@@ -4,9 +4,9 @@ import { create } from 'zustand';
 
 interface MarketState {
     currentPrice: number;
-    lastTickVolume: number; // ⭐️ 新增：存储后端推送的单次成交量
+    lastTickVolume: number; // 存储后端推送的单次成交量
     setCurrentPrice: (price: number) => void;
-    setLastTickVolume: (volume: number) => void; // ⭐️ 新增：更新单次成交量
+    setLastTickVolume: (volume: number) => void; // 更新单次成交量
 }
 
 export const useMarketStore = create<MarketState>((set) => ({
